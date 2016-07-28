@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Word Scramble</title>
+</head>
+<body>
+    <h1>A Javascript Word Scramble Game</h1>
+
+    <script>
+        var WORDS     = ["booger", "apple", "hackbright", "mango", "balloonicorn", "melon", "notebook", "cookie", "boba"];
+        // var SCRAMBLED = ["oogreb", "papel", "backrhight", "goman", "cnorlbaniolo", "eolmn", "tkobneoo", "koecoi", "abbo"];
+
+        var playing = true;
+
+        while (playing) {
+
+            // Grab a random word from the WORDS array
+            var wordIndex = Math.floor(Math.random() * WORDS.length);
+            var word = WORDS[wordIndex];
+            console.log(wordIndex);
+
+            // // Grab the corresponding scrambled word from the SCRAMBLED array
+            // var scrambleWord = SCRAMBLED[wordIndex];
+
+            // Scramble algorithm for creating scrambled version of word
+            function scramble(word) {
+
+                //Split a word into a list of characters.
+                var scrambleWord = word.split("");
+
+                //Loop over each index of the word to scramble.
+                for (var i = 0; i < word.length; i++) {
+                    //Get a random index in the list of characters.
+                    var randomIndex = Math.floor(Math.random() * word.length);
+
+                    //Save the letter at index i.
+                    var savedLetter = scrambleWord[i];
+
+                    //Overwrite the letter at i with the letter at randomIndex
+                    scrambleWord[i] = scrambleWord[randomIndex];
+
+                    //Overwrite the letter at randomIndex with the original letter from index i.
+                    scrambleWord[randomIndex] = savedLetter;
+
+                    //Display list for debugging.
+                    console.log(scrambleWord)
+                }
+                
+                // Join list of letters back into a string and return the string.
+                return scrambleWord.join("");
+            }
+
+            var scrambledWord = scramble(word);
+            // // prompt the user to guess the original word when given the scrambled word
+            // var guess = prompt("Please guess the original word: " + scramble(word));
+
+            // // Remove whitespace before and after guess, and make the letters all lowercase.
+            // guess = (guess.toLowerCase()).trim();
+
+            // // Test whitespace removal/lowercasing
+            // console.log("SPACE?"+guess+"SPACE?");
+
+            // If the user guesses wrong, tell them they were wrong and the right word.
+
+            // if (guess === word) {
+            //     alert("You guessed it! :) ");
+            // }
+            // else {
+            //     alert("You guessed " + guess + " but the original word was " + word);
+            // }
+
+            var correct = false;
+            while (!correct) {
+                 // prompt the user to guess the original word when given the scrambled word
+                var guess = prompt("Please guess the original word: " + scrambledWord);
+
+                //NEED TO FIX, IF THE USER CLICKS CANCEL(FALSE), THE PROGRAM NEEDS TO QUIT AND
+                //NOT EVALUATE AND CONTINUE OTHERWISE ERROR IN CONSOLE
+
+                // Remove whitespace before and after guess, and make the letters all lowercase.
+                guess = (guess.toLowerCase()).trim();
+                console.log("GUESS: " + guess)
+
+                // Test whitespace removal/lowercasing
+                console.log("SPACE?"+guess+"SPACE?"); 
+
+                if (guess === word) {
+                    alert("You guessed it! :) ");
+                    correct = true;
+                }
+                else {
+                    alert("You guessed " + guess + " but that's incorrect! Try again!");
+                }
+            }
+            
+            // If the user guesses the correct word, congratulate them.
+
+            playing = confirm("Press OK To keep playing or Cancel to quit");
+
+            // What does confirm() return?
+            // What does setting the playing variable do?
+        }
+
+        alert("goodbye!");
+    </script>
+    
+</body>
+</html>
